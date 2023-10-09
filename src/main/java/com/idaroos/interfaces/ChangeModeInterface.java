@@ -1,6 +1,6 @@
-package org.example.interfaces;
+package com.idaroos.interfaces;
 
-public interface ChangeMode {
+public interface ChangeModeInterface {
 
     void readyToSet(); // kollar så att state är korrekt när en användare vill ändra time eller date
 

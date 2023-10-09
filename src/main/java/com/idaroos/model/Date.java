@@ -1,4 +1,4 @@
-package org.example.model;
+package com.idaroos.model;
 
 import java.time.LocalDate;
 
