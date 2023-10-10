@@ -30,15 +30,24 @@ public class ConsoleMenu {
                     clock.displayDate();
                     break;
                 case "3":
-                    System.out.println("Enter new time");
-                    userInput = scanner.nextLine();
-                    clock.changeTime(userInput);
-
+                    if(clock.getCurrentState() == Clock.STATE.DisplayTime) {
+                        clock.readyToSet();
+                        System.out.println("Enter new time");
+                        userInput = scanner.nextLine();
+                        clock.changeTime(userInput);
+                    }else {
+                        System.out.println("Invalid choice.");
+                    }
                     break;
                 case "4":
-                    System.out.println("Enter new date");
-                    userInput = scanner.nextLine();
-                    clock.changeDate(userInput);
+                    if(clock.getCurrentState() == Clock.STATE.DisplayDate) {
+                        clock.readyToSet();
+                        System.out.println("Enter new date");
+                        userInput = scanner.nextLine();
+                        clock.changeDate(userInput);
+                    } else{
+                        System.out.println("Invalid choice");
+                    }
                     break;
 
                 case "5":

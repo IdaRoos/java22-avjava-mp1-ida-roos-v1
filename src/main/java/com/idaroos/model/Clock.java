@@ -25,15 +25,16 @@ public class Clock implements ChangeModeInterface, ClockInfoInterface {
     public void changeTime(String input) {
         if(currentState == STATE.ChangeTime){
             try {
-                time.setLocalTime(LocalTime.parse(input));
+                LocalTime newTime = LocalTime.parse(input);
+                time.setLocalTime(newTime);
             } catch (Exception e) {
-                System.out.println("Invalid time format. Please enter time in HH:mm:ss format.");
+                System.out.println("Invalid time format. Please enter time in HH:mm format.");
             }
         }else if(currentState == STATE.DisplayTime){
             readyToSet();
 
         }else {
-            System.out.println("Invalid choice");
+            System.out.println("Invalid choice. Current state - " + currentState);
         }
     }
 
@@ -43,12 +44,12 @@ public class Clock implements ChangeModeInterface, ClockInfoInterface {
             try {
                 date.setLocalDate(LocalDate.parse(input));
             } catch (Exception e) {
-                System.out.println("Invalid date format. Please enter date in yyyy-MM-dd format.");
+                System.out.println("Invalid date format. Please enter date in yyyy-mm-dd format.");
             }
         } else if(currentState == STATE.DisplayDate){
             readyToSet();
         } else {
-            System.out.println("Invalid choice");
+            System.out.println("Invalid choice. Current state - " + currentState);
         }
     }
 
