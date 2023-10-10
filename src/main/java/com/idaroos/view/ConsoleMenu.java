@@ -24,10 +24,19 @@ public class ConsoleMenu {
 
             switch (userInput) {
                 case "1":
-                    clock.displayTime();
+                    if(clock.getCurrentState() == Clock.STATE.DisplayDate){
+                        clock.changeMode();
+                    }  else{
+                        System.out.println("Invalid choice");
+                    }
                     break;
                 case "2":
-                    clock.displayDate();
+                    if(clock.getCurrentState() == Clock.STATE.DisplayTime){
+                        clock.changeMode();
+                    } else{
+
+                        System.out.println("Invalid choice");
+                    }
                     break;
                 case "3":
                     if(clock.getCurrentState() == Clock.STATE.DisplayTime) {
@@ -35,7 +44,8 @@ public class ConsoleMenu {
                         System.out.println("Enter new time");
                         userInput = scanner.nextLine();
                         clock.changeTime(userInput);
-                    }else {
+                        clock.set();
+                    } else {
                         System.out.println("Invalid choice.");
                     }
                     break;
@@ -45,6 +55,7 @@ public class ConsoleMenu {
                         System.out.println("Enter new date");
                         userInput = scanner.nextLine();
                         clock.changeDate(userInput);
+                        clock.set();
                     } else{
                         System.out.println("Invalid choice");
                     }

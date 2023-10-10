@@ -5,6 +5,7 @@ import com.idaroos.interfaces.ClockInfoInterface;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Clock implements ChangeModeInterface, ClockInfoInterface {
 
@@ -23,63 +24,24 @@ public class Clock implements ChangeModeInterface, ClockInfoInterface {
 
     @Override
     public void changeTime(String input) {
-        if(currentState == STATE.ChangeTime){
-            try {
-                LocalTime newTime = LocalTime.parse(input);
-                time.setLocalTime(newTime);
-            } catch (Exception e) {
-                System.out.println("Invalid time format. Please enter time in HH:mm format.");
-            }
-        }else if(currentState == STATE.DisplayTime){
-            readyToSet();
-
-        }else {
-            System.out.println("Invalid choice. Current state - " + currentState);
-        }
+        LocalTime newTime = LocalTime.parse(input, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        time.setLocalTime(newTime);
     }
 
     @Override
     public void changeDate(String input) {
-        if(currentState == STATE.ChangeDate){
-            try {
                 date.setLocalDate(LocalDate.parse(input));
-            } catch (Exception e) {
-                System.out.println("Invalid date format. Please enter date in yyyy-mm-dd format.");
-            }
-        } else if(currentState == STATE.DisplayDate){
-            readyToSet();
-        } else {
-            System.out.println("Invalid choice. Current state - " + currentState);
-        }
     }
 
     @Override
     public void displayTime() {
-        if(currentState == STATE.DisplayTime){
-            System.out.println(time.getLocalTime()); }
-        else if(currentState == STATE.DisplayDate){
-            changeMode();
-        }else if(currentState == STATE.ChangeTime){
-            set();
-        }
-        else{
-            System.out.println("Invalid choice. Current state - " + currentState);
-        }
+        System.out.println(time.getLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+
     }
 
     @Override
     public void displayDate() {
-
-        if(currentState == STATE.DisplayDate){
             System.out.println(date.getLocalDate());
-        }else if(currentState == STATE.DisplayTime) {
-            changeMode();
-        }else if(currentState == STATE.ChangeDate){
-            set();
-        }
-        else{
-            System.out.println("Invalid choice. Current state - " + currentState);
-        }
     }
 
     // Kolla så att state är korrekt när en användare vill ändra tid eller datum
@@ -87,8 +49,10 @@ public class Clock implements ChangeModeInterface, ClockInfoInterface {
     public void changeMode() {
         if(currentState == STATE.DisplayTime){
             currentState = STATE.DisplayDate;
+            displayDate();
         }else if(currentState == STATE.DisplayDate) {
             currentState = STATE.DisplayTime;
+            displayTime();
         }else{
             System.out.println("Invalid choice. Current state - " + currentState);
         }
@@ -111,8 +75,10 @@ public class Clock implements ChangeModeInterface, ClockInfoInterface {
     public void set() {
         if (currentState == STATE.ChangeTime) {
             currentState = STATE.DisplayTime;
+            displayTime();
         } else if (currentState == STATE.ChangeDate) {
             currentState = STATE.DisplayDate;
+            displayDate();
         } else {
             System.out.println("Invalid choice. Current state - " + currentState);
         }
