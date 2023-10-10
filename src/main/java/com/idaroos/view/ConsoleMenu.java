@@ -41,7 +41,8 @@ public class ConsoleMenu {
             case "3":
                 if(clock.getCurrentState() == Clock.STATE.DisplayTime) {
                     clock.readyToSet();
-                    System.out.println("Enter new time");
+                    System.out.println("Current state - " + clock.getCurrentState());
+                    System.out.println("Enter new time (HH:mm:ss):");
                     userInput = scanner.nextLine();
                     clock.changeTime(userInput);
                     clock.set();
@@ -52,7 +53,8 @@ public class ConsoleMenu {
             case "4":
                 if(clock.getCurrentState() == Clock.STATE.DisplayDate) {
                     clock.readyToSet();
-                    System.out.println("Enter new date");
+                    System.out.println("Current state - " + clock.getCurrentState());
+                    System.out.println("Enter new date (yyyy-MM-dd): ");
                     userInput = scanner.nextLine();
                     clock.changeDate(userInput);
                     clock.set();
